@@ -1,0 +1,22 @@
+{
+  "name": "project1-git-avatar",
+  "version": "1.0.0",
+  "description": "## Problem Statement",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/venetrius/LHL-project1-git-avatar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/venetrius/LHL-project1-git-avatar/issues"
+  },
+  "homepage": "https://github.com/venetrius/LHL-project1-git-avatar#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
