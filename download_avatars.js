@@ -7,7 +7,7 @@ function getRepoContributors(repoOwner, repoName, cb) {
     url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
     headers: {
       'User-Agent': 'request',
-      'Authorization' : process.env.GITHUB_TOKEN
+      'Authorization' : "token " +  process.env.GITHUB_TOKEN
     }
   };
   request(options, function(err, res, body) {
@@ -39,7 +39,7 @@ function processJSON (err, body){
   if(body.message == "Not Found"){
     console.log("unsuccessful request with repoOwner: " + repoOwner + " and repoName " + repoName);
     return;
-  }else if(body.message && body.message.contains("exceeded") && body.message.contains("limit")){
+  }else if(body.message && body.message.includes("exceeded") && body.message.includes("limit")){
     console.log("error with authentication");
     return;
   }
@@ -69,7 +69,7 @@ if(!(repoOwner && repoName)){
   console.log("repoOwner ", repoOwner, " or repoName: ", repoName, " is not valid");
 }else if(! process.env.GITHUB_TOKEN){
   console.log(".env file is required with a GITHUB_TOKEN entry");
-else if(! isDirectoryOK()){
+}else if(! isDirectoryOK()){
   console.log('directory',path , " is not present");
 }else{
   getRepoContributors(repoOwner, repoName, processJSON);
