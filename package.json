@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/venetrius/LHL-project1-git-avatar#readme",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "request": "^2.88.0"
   }
 }
