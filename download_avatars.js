@@ -36,17 +36,15 @@ function createGetAvatarLocalPath(){
 }
 
 function processJSON (err, body){
-  console.log(body.message);
-        if(body.message == "Not Found"){
-          console.log("unsuccessful request with repoOwner: " + repoOwner + " and repoName " + repoName);
-          return;
-        }else if(body.message && body.message.contains("exceeded") && body.message.contains("limit")){
-          console.log("error with authentication");
-          return;
-        }
-
-        body.map(a => a.avatar_url).forEach(a => downloadImageByURL(a, getAvatarLocalPath()));
-      }
+  if(body.message == "Not Found"){
+    console.log("unsuccessful request with repoOwner: " + repoOwner + " and repoName " + repoName);
+    return;
+  }else if(body.message && body.message.contains("exceeded") && body.message.contains("limit")){
+    console.log("error with authentication");
+    return;
+  }
+  body.map(a => a.avatar_url).forEach(a => downloadImageByURL(a, getAvatarLocalPath()));
+}
 
 function isDirectoryOK(){
   try {
@@ -77,3 +75,4 @@ else if(! isDirectoryOK()){
   getRepoContributors(repoOwner, repoName, processJSON);
 }
 
+module.export = getRepoContributors;
