@@ -15,12 +15,6 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
-getRepoContributors("jquery", "jquery",
-  function (err, body){
-    body.map(a => a.avatar_url).forEach(a => downloadImageByURL(a, getAvatarLocalPath()));
-  }
-);
-
 function downloadImageByURL(url, filePath) {
   var req = request.get(url)
           .on('error', function(err){throw err;})
@@ -42,8 +36,27 @@ function createGetAvatarLocalPath(){
   return func;
 }
 
+
+
 var getAvatarLocalPath = createGetAvatarLocalPath();
 
 
 console.log('Welcome to the GitHub Avatar Downloader!');
-downloadImageByURL("https://avatars2.githubusercontent.com/u/414129?v=4", "./this.jpg");
+
+var repoOwner = process.argv[2];
+var repoName = process.argv[3];
+
+if(!(repoOwner && repoName)){
+  console.log("repoOwner ", repoOwner, " or repoName: ", repoName, " is not valid");
+}
+else{
+  getRepoContributors(repoOwner, repoName,
+    function (err, body){
+      if(body.message == "Not Found"){
+        console.log("unsuccessful request with repoOwner: " + repoOwner + " and repoName " + repoName);
+        return;
+      }
+      body.map(a => a.avatar_url).forEach(a => downloadImageByURL(a, getAvatarLocalPath()));
+    }
+  );
+}
