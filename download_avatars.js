@@ -36,10 +36,7 @@ function createGetAvatarLocalPath(){
   return func;
 }
 
-
-
 var getAvatarLocalPath = createGetAvatarLocalPath();
-
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
